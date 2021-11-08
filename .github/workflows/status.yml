@@ -5,9 +5,8 @@ on:
 jobs:
   timeout_notification:
     runs-on: ubuntu-latest
+#    if: ${{ github.event.state == 'failure' && github.event.context == '' }}
     timeout-minutes: 5
     steps:
       - name: print
-        run: echo ${{ github.event.installation }} ${{ github.event.sender }}
-      - name: print
-        run: echo ${{ github.event.description }} ${{ github.event.target_url }} ${{ github.event.state }}
+        run: echo ${{ github.event.context }} = ${{ github.event.state }}
