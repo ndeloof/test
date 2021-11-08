@@ -1,0 +1,12 @@
+name: Notification owner about test files timeout
+on:
+  status:
+
+jobs:
+  timeout_notification:
+    runs-on: ubuntu-latest
+    if: ${{ github.events. }}
+    timeout-minutes: 5
+    steps:
+      - name: print
+        run echo ${{ github.events.id }} ${{ github.events.name }} ${{ github.events.state }}
