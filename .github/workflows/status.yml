@@ -1,6 +1,6 @@
 name: Notification owner about test files timeout
-on:
-  status:
+on: 
+  status
 
 jobs:
   timeout_notification:
@@ -8,4 +8,4 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: print
-        run: echo ${{ github.events.id }} ${{ github.events.name }} ${{ github.events.state }}
+        run: echo ${{ github.events.status.id }} ${{ github.events.status.name }} ${{ github.events.status.state }}
