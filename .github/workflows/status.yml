@@ -5,7 +5,6 @@ on:
 jobs:
   timeout_notification:
     runs-on: ubuntu-latest
-    if: ${{ github.events. }}
     timeout-minutes: 5
     steps:
       - name: print
