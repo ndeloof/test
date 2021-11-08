@@ -8,6 +8,6 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: print
-        run: echo ${{ github.events }}
+        run: echo ${{ github.event.status }}
       - name: print
-        run: echo ${{ github.events.id }} ${{ github.events.name }} ${{ github.events.state }}
+        run: echo ${{ github.event.id }} ${{ github.event.name }} ${{ github.event.state }}
