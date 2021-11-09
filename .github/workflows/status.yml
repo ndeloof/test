@@ -1,5 +1,7 @@
 name: Notification ${{ github.event.sha }}
-on: status
+on: 
+  status:
+    state: 'failure'
 
 jobs:
   timeout_notification:
