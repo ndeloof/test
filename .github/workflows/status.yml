@@ -1,6 +1,7 @@
 name: Notifications
 on: 
   status:
+    context: 'ci/fake'
     state: 'failure'
 
 jobs:
