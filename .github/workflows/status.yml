@@ -1,13 +1,12 @@
-name: Notification ${{ github.event.sha }}
+name: Notifications
 on: 
   status:
     state: 'failure'
 
 jobs:
   timeout_notification:
-    name: Commit Status ${{ github.event.sha }}
+    name: Commit Status
     runs-on: ubuntu-latest
-#    if: ${{ github.event.state == 'failure' && github.event.context == '' }}
     timeout-minutes: 5
     steps:
       - name: print
