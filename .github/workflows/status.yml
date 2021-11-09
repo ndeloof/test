@@ -3,6 +3,7 @@ on: status
 
 jobs:
   timeout_notification:
+    name: Commit Status ${{ github.event.context }} = ${{ github.event.state }}
     runs-on: ubuntu-latest
 #    if: ${{ github.event.state == 'failure' && github.event.context == '' }}
     timeout-minutes: 5
