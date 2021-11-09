@@ -1,4 +1,4 @@
-name: Notification owner about test files timeout
+name: Notification ${{ github.event.sha }}
 on: status
 
 jobs:
