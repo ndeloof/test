@@ -1,6 +1,5 @@
 name: Notification owner about test files timeout
-on: 
-  status
+on: status
 
 jobs:
   timeout_notification:
