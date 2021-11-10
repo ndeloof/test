@@ -12,8 +12,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: print
-        run: echo ${{ github.events.pull_request.base.sha  }}
+        run: echo ${{ github.event.pull_request.base.sha  }}
       - name: print
         run: echo ${{ github.event.before }}
       - name: print
-        run: echo ${{ github.events.pull_request.base.sha || github.event.before }}
+        run: echo ${{ github.event.pull_request.base.sha || github.event.before }}
