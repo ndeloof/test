@@ -1,14 +1,15 @@
 name: Notifications
 on: 
-  status:
-    context: 'ci/fake'
-    state: 'failure'
-
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+    
 jobs:
-  timeout_notification:
+  puts:
     name: Commit Status
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: print
-        run: echo ${{ github.event.context }} = ${{ github.event.state }}
+        run: echo ${{ github.events.pull_request.base.sha || github.event.before }}
