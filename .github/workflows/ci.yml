@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: hello world
         run: |
-          echo "${GITHUB_HEAD_REF} :: ${GITHUB_REF#refs/heads/}"
+          echo "${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
