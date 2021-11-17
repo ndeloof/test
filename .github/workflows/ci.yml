@@ -11,5 +11,4 @@ jobs:
     steps:
       - name: hello world
         run: |
-          echo "${{ github.event.pull_request.head.ref }}"
-          echo "${{ github.event.ref }}"
+          echo "${GITHUB_HEAD_REF} :: ${GITHUB_REF#refs/heads/}"
