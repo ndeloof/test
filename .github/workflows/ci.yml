@@ -11,5 +11,7 @@ jobs:
     steps:
     - name: Dump GitHub context
       run: |
+        echo "${{ github.event.before }}"
+        echo "${{ github.event.after }}"
         echo "${{ github.event.updated_at }}"
         echo "${{ github.event.pull_request.updated_at }}"      
