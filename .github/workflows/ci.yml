@@ -11,6 +11,8 @@ jobs:
     steps:
     - name: Dump GitHub context
       run: |
+        echo $GITHUB_EVENT_PATH
+        echo " --- "
         echo "${{ github.workflow }}"
         echo "${{ github.run_id }}"
         echo "${{ github.updated_at }}"
