@@ -10,7 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
       run: |
-        echo "$GITHUB_CONTEXT"      
+        echo "${{ github.event.updated_at || github.event.pull_request.updated_at }}"      
