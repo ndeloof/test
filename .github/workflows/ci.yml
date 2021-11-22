@@ -10,12 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Dump GitHub context
-      run: |
-        cat $GITHUB_EVENT_PATH
-        echo " --- "
-        echo "${{ github.workflow }}"
-        echo "${{ github.run_id }}"
-        echo "${{ github.updated_at }}"
-        echo "${{ github.event.pull_request.updated_at }}"      
-        echo " --- "
-        echo "${{ toJson(github) }}"      
+      run: echo $GITHUB_REF_NAME
