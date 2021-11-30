@@ -19,5 +19,7 @@ jobs:
           
       - name: Merge origin/master
         run: |
+          git config --global user.email "github@doctolib.com"
+          git config --global user.name "GitHub Actions"
           git merge origin/production --no-ff -m 'Merge back from production'
           git push origin master
