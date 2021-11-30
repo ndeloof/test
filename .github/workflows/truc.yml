@@ -1,9 +1,9 @@
 
    
-name: Merge back Production
+name: Test
 
 on:
-  workflow_dispatch
+  push
 
 
 jobs:
@@ -11,13 +11,15 @@ jobs:
     name: Merge back
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    concurrency:
+      group: hello
+      cancel-in-progress: true
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-          
-      - name: Merge origin/master
+      - name: Wait
         run: |
-          git config --global user.email "github@doctolib.com"
-          git config --global user.name "GitHub Actions"
-          git merge origin/production --no-ff -m 'Merge back from production'
-          git push origin master
+          sleep 300
+
+      - name: Cancelled
+        if: ${{ cancelled() }}
+        run: |
+         echo "workflow has been canceled !! "
