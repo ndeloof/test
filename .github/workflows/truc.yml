@@ -1,0 +1,23 @@
+
+   
+name: Merge back Production
+
+on:
+  workflow_dispatch
+
+
+jobs:
+  merge_back:
+    name: Merge back
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0             
+          
+      - name: Merge origin/master
+        run: |
+          git merge origin/production --no-ff -m 'Merge back from production'
+          git push origin master
