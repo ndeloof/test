@@ -9,7 +9,7 @@ on:
 jobs:
   use_latest:
     name: Update latest images
-    uses: doctolib/kube/.github/workflows/rw_rake_task.yml@master
+    uses: ndeloof/test/.github/workflows/rw.yml@master
     env:
       TOTO: hello
     with:
