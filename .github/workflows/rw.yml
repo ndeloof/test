@@ -1,0 +1,19 @@
+name: Rake tast
+
+on:
+  workflow_call:
+    inputs:
+      task:
+        description: rake tast
+        type: string
+
+jobs:
+  rake:
+    name: Update latest images
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Run task
+        run: |
+          echo ${{ inputs.task }}
+          echo ${{ env.TOTO }}

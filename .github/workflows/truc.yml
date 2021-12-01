@@ -3,23 +3,14 @@
 name: Test
 
 on:
-  workflow_dispatch
+  push
 
 
 jobs:
-  merge_back:
-    name: Merge back
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    concurrency:
-      group: hello
-      cancel-in-progress: true
-    steps:
-      - name: Wait
-        run: |
-          sleep 300
-
-      - name: Cancelled
-        if: ${{ cancelled() }}
-        run: |
-         echo "workflow has been canceled !! "
+  use_latest:
+    name: Update latest images
+    uses: doctolib/kube/.github/workflows/rw_rake_task.yml@master
+    env:
+      TOTO: hello
+    with:
+      task: versions:kube_repo_use_latest_everywhere
