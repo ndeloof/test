@@ -9,8 +9,5 @@ on:
 jobs:
   use_latest:
     name: Update latest images
-    uses: ndeloof/test/.github/workflows/rw.yml@master
-    env:
-      TOTO: hello
-    with:
-      task: versions:kube_repo_use_latest_everywhere
+    steps:
+      - run: echo ${{ github.ref_name }}"
