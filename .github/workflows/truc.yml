@@ -9,5 +9,6 @@ on:
 jobs:
   use_latest:
     name: Update latest images
+    runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.ref_name }}"
