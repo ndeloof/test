@@ -38,7 +38,7 @@ jobs:
               sha: pr.data.head.sha,
               state: 'success',
               context: 'test/full-test-suite/results',
-              description: 'Manually bypassed by ' + context.payload.sender.html_url
+              description: 'Manually bypassed by @' + context.payload.sender.login
             });
             console.log('done');
 
