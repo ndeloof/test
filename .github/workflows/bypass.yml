@@ -8,7 +8,7 @@ on:
 jobs:
   like-pizza:
     runs-on: ubuntu-latest
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/bypass checks'}}
+    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '/bypass checks') }}
     steps:
       - name: Bypass Checks
         uses: actions/github-script@v5
