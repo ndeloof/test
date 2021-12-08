@@ -23,7 +23,7 @@ jobs:
               content: "+1",
             });            
 
-            console.log(context.payload.pull_request)
+            console.log(toJson(context.payload))
 
             const pr = await github.rest.pulls.get({
               owner,
