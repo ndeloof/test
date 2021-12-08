@@ -23,7 +23,7 @@ jobs:
               content: "+1",
             });            
 
-            console.log(context.payload.issue.pull_request.head.sha)
+            console.log(context.payload.issue.pull_request)
 
             const pr = await github.rest.pulls.get({
               owner,
@@ -38,7 +38,7 @@ jobs:
               sha: pr.data.head.sha,
               state: 'success',
               context: 'test/full-test-suite/results',
-              description: 'Manually bypassed by @' + context.payload.comment.user.login,
+              description: 'Manually bypassed by ' + context.payload.sender.html_url
             });
             console.log('done');
 
