@@ -11,12 +11,12 @@ jobs:
     if: ${{ github.event.issue.pull_request && github.event.comment.body == '/bypass checks'}}
     steps:
       - name: Bypass Checks
-        uses: actions/github-script@v4
+        uses: actions/github-script@v5
         with:
           script: |
             const {owner, repo, number} = context.issue
            
-            github.reactions.createForIssueComment({
+            github.rest.reactions.createForIssueComment({
               owner,
               repo,
               comment_id: context.payload.comment.id,
@@ -24,8 +24,9 @@ jobs:
             });            
 
             
-            
-            await github.repos.createCommitStatus({
+            console.log(context.sha) 
+
+            await github.rest.repos.createCommitStatus({
               owner,
               repo,
               sha: context.sha,
@@ -33,4 +34,5 @@ jobs:
               context: 'test/full-test-suite/results',
               description: 'Manually bypassed',
             });
+            console.log('done');
 
