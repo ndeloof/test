@@ -23,7 +23,7 @@ jobs:
               content: "+1",
             });            
 
-            const pr = await github.pulls.get({
+            const pr = await github.rest.pulls.get({
               owner,
               repo,
               pull_number: number,
