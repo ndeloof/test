@@ -22,8 +22,10 @@ jobs:
               comment_id: context.payload.comment.id,
               content: "+1",
             });            
+
             
-            github.repos.createCommitStatus({
+            
+            await github.repos.createCommitStatus({
               owner,
               repo,
               sha: context.sha,
