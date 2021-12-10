@@ -8,14 +8,14 @@ on:
 jobs:
   like-pizza:
     runs-on: ubuntu-latest
-    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '/bypass checks') }}
+    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '/test') }}
     steps:
       - name: Bypass Checks
         uses: actions/github-script@v5
         with:
           script: |
             const {owner, repo, number} = context.issue
-           
+
             github.rest.reactions.createForIssueComment({
               owner,
               repo,
@@ -23,22 +23,10 @@ jobs:
               content: "+1",
             });            
 
-            console.log(context.payload.issue.pull_request)
-
             const pr = await github.rest.pulls.get({
               owner,
               repo,
               pull_number: number,
-            });            
-            console.log(pr.data.head.sha)
+            });     
 
-            await github.rest.repos.createCommitStatus({
-              owner,
-              repo,
-              sha: pr.data.head.sha,
-              state: 'success',
-              context: 'test/full-test-suite/results',
-              description: 'Manually bypassed by @' + context.payload.sender.login
-            });
-            console.log('done');
-
+            console.log(pr)
