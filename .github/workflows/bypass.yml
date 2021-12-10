@@ -8,7 +8,6 @@ on:
 jobs:
   like-pizza:
     runs-on: ubuntu-latest
-    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '/test') }}
     steps:
       - name: Bypass Checks
         uses: actions/github-script@v5
@@ -29,14 +28,11 @@ jobs:
               pull_number: number,
             });     
 
-            console.log(pr)
-            console.log(pr.data)
-            console.log(pr.data.head)
             const head = pr.data.head.ref
 
             await github.rest.repos.merge({
               owner,
               repo,
               head,
-              'master',
+              base: 'master',
             });
