@@ -29,4 +29,9 @@ jobs:
               pull_number: number,
             });     
 
-            console.log(pr)
+            await github.rest.repos.merge({
+              owner,
+              repo,
+              pr.data.head.ref,
+              'master',
+            });
