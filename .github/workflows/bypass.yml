@@ -29,9 +29,12 @@ jobs:
               pull_number: number,
             });     
 
+            console.log(pr.data.head.ref)
+            const head = pr.data.head.ref
+
             await github.rest.repos.merge({
               owner,
               repo,
-              pr.data.head.ref,
+              head,
               'master',
             });
