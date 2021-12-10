@@ -28,11 +28,11 @@ jobs:
               pull_number: number,
             });     
 
-            const head = pr.data.head.ref
+            const pull_branch = pr.data.head.ref
 
             await github.rest.repos.merge({
               owner,
               repo,
-              head,
-              base: 'master',
+              base: pull_branch,
+              head: 'master',
             });
