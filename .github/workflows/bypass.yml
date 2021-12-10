@@ -29,7 +29,9 @@ jobs:
               pull_number: number,
             });     
 
-            console.log(pr.data.head.ref)
+            console.log(pr)
+            console.log(pr.data)
+            console.log(pr.data.head)
             const head = pr.data.head.ref
 
             await github.rest.repos.merge({
