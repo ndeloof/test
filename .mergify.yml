@@ -1,0 +1,13 @@
+queue_rules:
+  - name: default
+    conditions:
+      - check-success=Test / Update latest images
+      
+pull_request_rules:
+  - name: merge using the merge queue
+    conditions:
+      - base=main
+      - check-success=Test / Update latest images
+    actions:
+      queue:
+        name: default
