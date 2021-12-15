@@ -1,0 +1,37 @@
+name: Merge Master
+
+on:
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  merge-master:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '/merge master') }}
+    steps:
+      - name: Merge Master
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const {owner, repo, number} = context.issue
+
+            github.rest.reactions.createForIssueComment({
+              owner,
+              repo,
+              comment_id: context.payload.comment.id,
+              content: "+1",
+            });            
+
+            const pr = await github.rest.pulls.get({
+              owner,
+              repo,
+              pull_number: number,
+            });     
+
+            await github.rest.repos.merge({
+              owner,
+              repo,
+              pr.data.head.ref,
+              'master',
+            });
