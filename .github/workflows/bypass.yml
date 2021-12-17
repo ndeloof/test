@@ -1,0 +1,38 @@
+name: Bypass Checks
+
+on:
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  like-pizza:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bypass Checks
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const {owner, repo, number} = context.issue
+
+            github.rest.reactions.createForIssueComment({
+              owner,
+              repo,
+              comment_id: context.payload.comment.id,
+              content: "+1",
+            });            
+
+            const pr = await github.rest.pulls.get({
+              owner,
+              repo,
+              pull_number: number,
+            });     
+
+            const pull_branch = pr.data.head.ref
+
+            await github.rest.repos.merge({
+              owner,
+              repo,
+              base: pull_branch,
+              head: 'master',
+            });

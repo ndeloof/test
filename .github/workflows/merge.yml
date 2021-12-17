@@ -1,0 +1,37 @@
+name: Merge back Production
+
+on:
+#   schedule:
+#     # 7am to 8pm range used - to cover daylight savings
+#     - cron:  '0,30 7-20 * * 1-5'
+
+  workflow_dispatch:
+
+
+jobs:
+  merge_back:
+    name: Merge back
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Merge origin/master
+        uses: actions/github-script@v5
+        with:
+          script: |
+            await github.rest.repos.merge({
+              owner: 'nicolas',
+              repo: 'test',
+              base: 'master',
+              head: 'production',
+              commit_message: 'Merge back from production',
+            });
+
+      - name: Notify PEER_SRE on failure
+        if: ${{ failure() }}
+        uses: slackapi/slack-github-action@v1
+        with:
+          channel-id: 'team_peer_sre'
+          slack-message: '🥺 Merge back production failed: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
