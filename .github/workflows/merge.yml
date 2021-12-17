@@ -18,8 +18,8 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            await github.rest.repos.merges({
-              owner: 'nicolas',
+            await github.rest.repos.merge({
+              owner: 'ndeloof',
               repo: 'test',
               base: 'master',
               head: 'production',
