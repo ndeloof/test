@@ -18,7 +18,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            await github.rest.repos.merge({
+            await github.rest.repos.merges({
               owner: 'nicolas',
               repo: 'test',
               base: 'master',
