@@ -18,6 +18,7 @@ jobs:
         env:
           TZ: 'Europe/Paris'
         run: |
+          echo $PATH
           hour=$(date +%k)
           if [ "${{ github.event_name }}" == "schedule" ] && [ "$((($hour - 9) % 3))" -ne 0 ]; then
             echo "skipping execution"
