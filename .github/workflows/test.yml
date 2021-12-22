@@ -2,7 +2,9 @@ name: Pull translations from phraseapp
 
 on:
   schedule:
-    - cron: '*/10 8-16 * * 1-5'
+    - cron: '0 7-17 * * MON-FRI'
+
+  workflow_dispatch:
 
 jobs:
   pull-translations:
@@ -17,21 +19,33 @@ jobs:
           TZ: 'Europe/Paris'
         run: |
           hour=$(date +%k)
-          echo ::set-output name=skip::test "$((($hour - 9) % 3))" -eq 0 && echo "false" || echo "true"'
+          if [ "${{ github.event_name }}" == "schedule" ] && [ "$((($hour - 9) % 3))" -ne 0 ]; then
+            echo "skipping execution"
+            echo "::set-output name=run::false"
+          else
+            echo "::set-output name=run::true"
+          fi
 
       - name: Checkout
-        if: ${{ steps.timezone.output.skip }}
+        if: ${{ steps.timezone.outputs.run }}
         uses: actions/checkout@v2
 
       - name: Setup Ruby and install gems
-        if: ${{ steps.timezone.output.skip }}
+        if: ${{ steps.timezone.outputs.run }}
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-        
+
       - name: Run pull_translations script
-        if: ${{ steps.timezone.output.skip }}
+        if: ${{ steps.timezone.outputs.run }}
         run: |
           bundler exec ci/release/pull_translations.rb
 
-
+      - name: Notify duty-infos channel
+        if: ${{ steps.timezone.outputs.run }}
+        uses: slackapi/slack-github-action@v1.14.0
+        with:
+          channel-id: 'duty-infos'
+          slack-message: 'Update translations PR ${{ github.event.pull_request.html_url }} has been created 🚧'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
