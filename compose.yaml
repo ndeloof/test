@@ -2,4 +2,4 @@ services:
   database:
     image: postgres
     environment:
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_PASSWORD=password
